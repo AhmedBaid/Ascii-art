@@ -1,35 +1,29 @@
 package main
-
 import (
 	"bufio"
 	"fmt"
 	"log"
 	"os"
 	"strings"
-
 	ascii "ascii/functions"
 )
-
 func main() {
 	args := os.Args
 	if len(args) != 2 {
 		log.Fatal("make sure that the arguments is two")
 	}
-
 	Filename := "standard.txt"
 	file, err := os.Open(Filename)
 	if err != nil {
 		log.Fatal("Error opening file 😡 :", err)
 	}
 	defer file.Close()
-
 	run := []string{}
 	AsciiMap := map[rune][]string{}
 	count := 0
 	space := ' '
 	Myscanner := bufio.NewScanner(file)
 	totalLines := 0
-
 	for Myscanner.Scan() {
 		text := Myscanner.Text()
 		totalLines++
@@ -44,25 +38,24 @@ func main() {
 			count = 0
 		}
 	}
-
 	argument := args[1]
+	for _, char := range argument {
+		if char > 126 || char < 32 {
+			log.Fatal("Error ajmii special charachtere 😍")
+		}
+	}
 	if len(argument) == 0 {
 		return
 	}
-
 	splitSlice := strings.Split(argument, "\\n")
-
 	if totalLines != 854 {
 		log.Fatal("There is some issues with your file standard.txt")
 	}
-
 	if strings.Replace(argument, "\\n", "", -1) == "" {
 		for i := 0; i < strings.Count(argument, "\\n"); i++ {
 			fmt.Println()
 		}
 		return
 	}
-
 	ascii.PrintAscii(splitSlice, AsciiMap)
-
 }
