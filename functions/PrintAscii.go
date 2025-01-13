@@ -1,20 +1,14 @@
 package ascii
 
-import (
-	"fmt"
-	"log"
-)
+import "fmt"
 
-func PrintAscii(splitSlice []string, AsciiMap map[rune][]string) {
-	for _, word := range splitSlice {
+func Print(splitslice []string, Mapascii map[rune][]string) {
+	for _, word := range splitslice {
 		if word != "" {
 			for line := 0; line < 8; line++ {
 				for _, char := range word {
-					if char > 126 || char < 32 {
-						log.Fatal("Error ajmii special charachtere 😍")
-					}
-					if ascii, exist := AsciiMap[char]; exist {
-						fmt.Print(ascii[line])
+					if variable, exist := Mapascii[char]; exist {
+						fmt.Print(variable[line])
 					}
 				}
 				fmt.Println()
